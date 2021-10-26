@@ -1,0 +1,74 @@
+body{
+    font-family: Serif;
+   /* background-color: #E7D2A7; */
+   background-image: url(paper.jpg) ;
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
+   height: 1200px;
+ 
+}
+.header{
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cards{
+    display: grid;
+    grid-template-areas: 
+        'myArea1 myArea6 myArea6  myArea2'
+        'myArea3 myArea4 myArea4  myArea5';
+
+    padding: 20px;
+    margin-top: 40px ;
+}
+#city-input{
+    /* background-color: #E7D2A7;   */
+          height: 10px;
+          width: 30%;
+          top: 100px;
+          right: 0;
+          left: 0;
+          outline: none;
+          border:  1px solid black ;
+          margin-left: 85px;
+          padding: 20px;
+          padding-right: 50px;
+          justify-content: center;
+      
+}
+.card1{
+    grid-area: myArea1; 
+    margin: 20px 20px 0px 0px ;
+}
+.card2{
+    grid-area: myArea2; 
+    margin: 20px 20px 0px 0px ;
+}
+.card3{
+    grid-area: myArea3; 
+    margin: 20px 20px 0px 0px ;
+}
+.card4{
+    grid-area: myArea4; 
+    margin: 20px 20px    0px 0px ;
+}
+.card5{
+    margin: 20px 20px 0px 0px ;
+    grid-area: myArea5; 
+}
+.weather6{
+    text-align: center;
+    grid-area: myArea6; 
+}
+.test{
+    height: 450px;
+}
+.date{
+ display: flex;
+ justify-content: flex-start;
+}
+
+.news-form{
+    margin: auto;
+}
