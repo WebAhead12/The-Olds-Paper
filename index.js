@@ -26,6 +26,7 @@ form.addEventListener("submit", event => {
                 const allArtTitles = Array.from(document.querySelectorAll(".art1Title"))
                 const allArtContents = Array.from(document.querySelectorAll(".art1Content"))
                 const allArtImages = Array.from(document.querySelectorAll(".art1Img"))
+                const readMore = Array.from(document.querySelectorAll(".button"))
 
                 allArtTitles.forEach((element) => {
                     element.textContent = articlesArr[index].title;
@@ -34,6 +35,7 @@ form.addEventListener("submit", event => {
                 index = 0;
                 allArtContents.forEach((element) => {
                     element.textContent = articlesArr[index].description;
+
                     index++;
                 })
                 index = 0;
@@ -43,12 +45,18 @@ form.addEventListener("submit", event => {
                     element.height = "30"
                     index++;
                 })
+                index = 0;
+                readMore.forEach((element) => {
+                    element.href = articlesArr[index].url;
+                    element.style.display = 'block'
+                    index++;
+                })
             }).catch(error => {
                 if (error.message === "400") {
                     console.log(`${weatherInput.value} Is not a real city`)
                 } else {
                     console.error(error)
-                    console.log(`Unexpected Error 1`);
+                    console.log(`Unexpected Error`);
                 }
             });
             const weatherTitle = document.getElementById("weatherTitle")
@@ -57,6 +65,7 @@ form.addEventListener("submit", event => {
             const humidityText = document.getElementById("humidityText")
             const weatherType = document.getElementById("weatherType")
             const weatherTemp = document.getElementById("weatherTemp")
+            const date = document.querySelector('.currDate')
 
             weatherTitle.textContent = json1.location.name + " - " + json1.location.country;
             weatherImg.src = json1.current.condition.icon
@@ -64,12 +73,17 @@ form.addEventListener("submit", event => {
             humidityText.textContent = "Humidity: " + json1.current.humidity + "%"
             weatherTemp.textContent = json1.current.temp_c + "\u2103"
             weatherType.textContent = json1.current.condition.text
+            date.textContent = json1.forecast.forecastday[0].date
+
+
+
+
         }).catch(error => {
             if (error.message === "400") {
                 console.log(`${weatherInput.value} Is not a real city`)
             } else {
                 console.error(error)
-                console.log(`Unexpected Error 2`);
+                console.log(`Unexpected Error`);
             }
         });
     }
