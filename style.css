@@ -8,9 +8,16 @@ body{
  
 }
 .header{
-    margin: auto;
+    margin: 20px auto;
     display: flex;
     justify-content: space-between;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 10px 0 3px 0;
+}
+
+.currDate{
+    padding: 0 0 0 5px;
 }
 
 .cards{
@@ -37,33 +44,31 @@ body{
           justify-content: center;
       
 }
+.card1, .card2, .card3, .card4, .card5{
+    margin: 20px 20px 0 0;
+    height: auto;
+}
+
 .card1{
     grid-area: myArea1; 
-    margin: 20px 20px 0px 0px ;
 }
 .card2{
     grid-area: myArea2; 
-    margin: 20px 20px 0px 0px ;
 }
 .card3{
     grid-area: myArea3; 
-    margin: 20px 20px 0px 0px ;
 }
 .card4{
     grid-area: myArea4; 
-    margin: 20px 20px    0px 0px ;
 }
 .card5{
-    margin: 20px 20px 0px 0px ;
     grid-area: myArea5; 
 }
 .weather6{
     text-align: center;
     grid-area: myArea6; 
 }
-.test{
-    height: 450px;
-}
+
 .date{
  display: flex;
  justify-content: flex-start;
@@ -72,3 +77,18 @@ body{
 .news-form{
     margin: auto;
 }
+.button {
+    display: none;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    font-size: 0.875rem;
+    border-radius: 5px;
+    color: #fff;
+    background-color: rgba(0,0,0,0.35);
+    border-color: #1890ff;
+    box-shadow: 0 2px 0 hsl(220, 10%, 90%);
+    text-decoration: none;
+    width: fit-content;
+    padding: 6px 10px 6px 10px;
+  }
