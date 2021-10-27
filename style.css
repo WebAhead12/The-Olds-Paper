@@ -1,11 +1,14 @@
+@font-face {
+    font-family: 'OldNewspaperTypes';
+    font-style: normal;
+    font-weight: 400;
+    src: url("OldNewspaperTypes.woff2") format('woff2');
+  }
 body{
-    font-family: Serif;
-   /* background-color: #E7D2A7; */
-   background-image: url(paper.jpg) ;
-   background-repeat: no-repeat;
-   background-size: 100% 100%;
-   height: 1200px;
- 
+    background: linear-gradient(180deg, rgba(229,207,168,1) 0%, rgba(232,214,176,1) 35%, rgba(231,210,167,1) 50%, rgba(234,216,178,1) 65%, rgba(227,205,156,1) 100%); 
+    font-family: 'OldNewspaperTypes', sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 .header{
     margin: 20px auto;
@@ -24,10 +27,12 @@ body{
     display: grid;
     grid-template-areas: 
         'myArea1 myArea6 myArea6  myArea2'
+        'myArea1 myArea4 myArea4  myArea2'
+        'myArea3 myArea4 myArea4  myArea5'
         'myArea3 myArea4 myArea4  myArea5';
-
     padding: 20px;
     margin-top: 40px ;
+    
 }
 #city-input{
     /* background-color: #E7D2A7;   */
@@ -42,7 +47,6 @@ body{
           padding: 20px;
           padding-right: 50px;
           justify-content: center;
-      
 }
 .card1, .card2, .card3, .card4, .card5{
     margin: 20px 20px 0 0;
@@ -50,23 +54,41 @@ body{
 }
 
 .card1{
-    grid-area: myArea1; 
+    grid-area: myArea1;
+    border-right: 3px solid rgb(182, 157, 113);
+    border-bottom: 3px solid rgb(182, 157, 113);
+    padding: 0 4px 4px 0;
 }
 .card2{
-    grid-area: myArea2; 
+    grid-area: myArea2;
+    border-left: 3px solid rgb(182, 157, 113);
+    border-bottom: 3px solid rgb(182, 157, 113);
+    padding: 0 0 4px 4px;
 }
 .card3{
-    grid-area: myArea3; 
+    grid-area: myArea3;
+    border-right: 3px solid rgb(182, 157, 113);
+
+    padding: 0 4px 0 0;
 }
 .card4{
-    grid-area: myArea4; 
+    grid-area: myArea4;
+    margin-top: 30%;
+    border-top: 3px solid rgb(182, 157, 113);
+    padding-top: 15px;
+
 }
 .card5{
-    grid-area: myArea5; 
+    grid-area: myArea5;
+    border-left: 3px solid rgb(182, 157, 113);
+    padding: 0 0 0 4px;
 }
 .weather6{
     text-align: center;
     grid-area: myArea6; 
+    margin-top: 15%;
+
+    
 }
 
 .date{
@@ -91,4 +113,23 @@ body{
     text-decoration: none;
     width: fit-content;
     padding: 6px 10px 6px 10px;
+  }
+  .art1Img{
+      margin-left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 20%;
+  }
+  #weatherTemp{
+      font-size: 36px;
+      line-height: 50px;
+  }
+  #weatherImg{
+      width:100px;
+      height:100px;
+  }
+  .weatherInfo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
   }
