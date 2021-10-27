@@ -27,7 +27,7 @@ form.addEventListener("submit", event => {
 })
 
 function fetchIt(weatherInputValue) {
-    fetch(`http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${weatherInputValue}&days=7&aqi=no&alerts=no`).then(response => {
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${weatherInputValue}&days=7&aqi=no&alerts=no`).then(response => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
     }).then(json1 => {
