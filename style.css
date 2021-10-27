@@ -9,6 +9,9 @@ body{
     font-family: 'OldNewspaperTypes', sans-serif;
     font-weight: 500;
     font-style: normal;
+    width: 85%;
+    margin: auto;
+    border: 1px solid black;
 }
 .header{
     margin: 20px auto;
@@ -28,10 +31,10 @@ body{
     grid-template-areas: 
         'myArea1 myArea6 myArea6  myArea2'
         'myArea1 myArea4 myArea4  myArea2'
-        'myArea3 myArea4 myArea4  myArea5'
         'myArea3 myArea4 myArea4  myArea5';
     padding: 20px;
-    margin-top: 40px ;
+    margin-top: 10px ;
+    border-top: 1px solid black;
     
 }
 #city-input{
@@ -51,6 +54,9 @@ body{
 .card1, .card2, .card3, .card4, .card5{
     margin: 20px 20px 0 0;
     height: auto;
+    background-color: rgba(0,0,0,0.2);
+    transition: 0.75s;
+    z-index: 1;
 }
 
 .card1{
@@ -58,18 +64,21 @@ body{
     border-right: 3px solid rgb(182, 157, 113);
     border-bottom: 3px solid rgb(182, 157, 113);
     padding: 0 4px 4px 0;
+
+    
 }
 .card2{
     grid-area: myArea2;
     border-left: 3px solid rgb(182, 157, 113);
     border-bottom: 3px solid rgb(182, 157, 113);
     padding: 0 0 4px 4px;
+
 }
 .card3{
     grid-area: myArea3;
     border-right: 3px solid rgb(182, 157, 113);
-
     padding: 0 4px 0 0;
+
 }
 .card4{
     grid-area: myArea4;
@@ -82,13 +91,22 @@ body{
     grid-area: myArea5;
     border-left: 3px solid rgb(182, 157, 113);
     padding: 0 0 0 4px;
+
 }
+
+.card1:hover, .card2:hover, .card3:hover, .card4:hover, .card5:hover{
+    transform: scale(1.1);
+    z-index: 2;
+}
+
 .weather6{
     text-align: center;
     grid-area: myArea6; 
     margin-top: 15%;
-
-    
+    width:50%;
+    margin:20% auto 0 auto;
+    transition: 0.75s;
+    z-index: 1;
 }
 
 .date{
@@ -119,6 +137,7 @@ body{
       transform: translateX(-50%);
       width: 80%;
       height: 20%;
+      /* filter: grayscale(100%); */
   }
   #weatherTemp{
       font-size: 36px;
@@ -127,6 +146,7 @@ body{
   #weatherImg{
       width:100px;
       height:100px;
+      /* filter: grayscale(100%); */
   }
   .weatherInfo{
       display: flex;
