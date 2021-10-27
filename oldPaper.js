@@ -1,5 +1,5 @@
 const weatherApiKey = '5c44a1eebb8047a8aa165327212610'
-const newsApiKey = 'e578049dacd34ecdb9206efe077eec92'
+const newsApiKey = '54b1e371b99d4e05abcac90ff24ae908'
 
 const weatherInput = document.getElementById("city-input");
 const submitForm = document.getElementById("city-submit")
