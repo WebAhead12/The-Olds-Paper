@@ -20,13 +20,10 @@ const date = document.querySelector('.currDate')
 fetchIt('Haifa');
 
 form.addEventListener("submit", event => {
-    event.preventDefault();
-    if (weatherInput.value != "") {
-        fetchIt(weatherInput.value)
-    } else {
-        fetchIt('Haifa')
-    }
 
+    event.preventDefault();
+    let input = weatherInput.value != "" ? weatherInput.value : 'Haifa';
+    fetchIt(input);
 })
 
 function fetchIt(weatherInputValue) {
@@ -34,7 +31,6 @@ function fetchIt(weatherInputValue) {
         if (!response.ok) throw new Error(response.status);
         return response.json();
     }).then(json1 => {
-        console.log(json1);
         let currCountry = countryCodes.find(element => element.Name == json1.location.country).Code.toLowerCase();
         fetch(`https://newsapi.org/v2/top-headlines?country=${currCountry}&apiKey=${newsApiKey}`).then(response => {
             if (!response.ok) throw new Error(response.status);
@@ -51,8 +47,6 @@ function fetchIt(weatherInputValue) {
             })
             allArtImages.forEach((element, index) => {
                 element.src = fixedArticles[index].urlToImage;
-                element.width = "80"
-                element.height = "30"
             })
             readMore.forEach((element, index) => {
                 element.href = fixedArticles[index].url;
@@ -60,10 +54,10 @@ function fetchIt(weatherInputValue) {
             })
         }).catch(error => {
             if (error.message === "400") {
-                console.log(`${weatherInput.value} Is not a real city`)
+                console.log(`[NEWS API]: Couldnt Find Country with this code ${currCountry}`)
             } else {
                 console.error(error)
-                console.log(`Unexpected Error`);
+                console.log(`[NEWS API]: Unexpected Error`);
             }
         });
 
@@ -77,10 +71,10 @@ function fetchIt(weatherInputValue) {
 
     }).catch(error => {
         if (error.message === "400") {
-            console.log(`${weatherInput.value} Is not a real city`)
+            console.log(`[WEATHER API]: ${weatherInput.value} Is not a valid city`)
         } else {
             console.error(error)
-            console.log(`Unexpected Error`);
+            console.log(`[WEATHER API]: Unexpected Error`);
         }
     });
 }
