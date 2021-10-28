@@ -4,6 +4,7 @@
     font-weight: 400;
     src: url("OldNewspaperTypes.woff2") format('woff2');
   }
+  /* changes the background color and the font size */
 body{
     background: linear-gradient(180deg, rgba(229,207,168,1) 0%, rgba(232,214,176,1) 35%, rgba(231,210,167,1) 50%, rgba(234,216,178,1) 65%, rgba(227,205,156,1) 100%); 
     font-family: 'OldNewspaperTypes', sans-serif;
@@ -14,10 +15,11 @@ body{
     margin: auto;
     border: 1px solid black;
 }
-
+/* font size for the title for each article */
 h1{
     font-size: 25px;
 }
+/* nav bar settings */
 .header{
     margin: 20px auto;
     display: flex;
@@ -26,11 +28,11 @@ h1{
     border-bottom: 1px solid black;
     padding: 10px 0 3px 0;
 }
-
+/* the current date in the nav bar */
 .currDate{
     padding: 0 0 0 5px;
 }
-
+/*  for every article thats on the page and the weather  */
 .cards{
     display: grid;
     grid-template-areas: 
@@ -43,8 +45,8 @@ h1{
     
     
 }
+/* the search bar for the cities */
 #city-input{
-    /* background-color: #E7D2A7;   */
           height: 10px;
           width: 30%;
           top: 100px;
@@ -57,6 +59,7 @@ h1{
           padding-right: 50px;
           justify-content: center;
 }
+ /*  every article  with out the weather design */
 .card1, .card2, .card3, .card4, .card5{
     margin: 20px 20px 0 0;
     height: auto;
@@ -101,12 +104,12 @@ h1{
     grid-area: myArea5;
     border-left: 3px solid rgb(182, 157, 113);
 }
-
+/*  the animation  */
 .card1:hover, .card2:hover, .card3:hover, .card4:hover, .card5:hover{
     transform: scale(1.1);
     z-index: 2;
 }
-
+/*  the weather design with the animation */
 .weather6{
     text-align: center;
     grid-area: myArea6; 
@@ -116,7 +119,7 @@ h1{
     transition: 0.75s;
     z-index: 1;
 }
-
+/*  the date in the nav bar */
 .date{
  display: flex;
  justify-content: flex-start;
@@ -125,6 +128,7 @@ h1{
 .news-form{
     margin: auto;
 }
+/*  every read more button design */
 .button {
     display: none;
     font-weight: 400;
@@ -140,17 +144,19 @@ h1{
     width: fit-content;
     padding: 6px 10px 6px 10px;
   }
+  /*  the photos design */
   .art1Img{
       margin-left: 50%;
       transform: translateX(-50%);
       margin-top: 5%;
       width: 80%;
       height: 20%;
-      /* filter: grayscale(100%); */
   }
+  /* the article div  */
   .contetDiv{
     margin:2%;
   }
+
   #weatherTemp{
       font-size: 36px;
       line-height: 50px;
@@ -181,7 +187,6 @@ h1{
       display: flex;
       flex-direction: column;
 }
-
 @media only screen and(min-width: 800px) and (max-width: 1200px) {
     .cards{
         display: grid;
@@ -253,5 +258,26 @@ h1{
     .card1:hover, .card2:hover, .card3:hover, .card4:hover, .card5:hover{
         transform: scale(1.025);
         z-index: 2;
+    }
+    #city-submit{
+        margin-left: 22.5%;
+
+    }
+    #city-input{
+        margin-left: 15px;
+    }
+    .date{
+        font-size: 12px;
+        
+    }
+    .currDate{
+        width: 50px;
+        font-size: 12px;
+    }
+    .pagenum{
+        font-size: 12.5px;
+        width: 50px;
+        padding-left: 5px;
+        margin-right: 5px;
     }
 }
