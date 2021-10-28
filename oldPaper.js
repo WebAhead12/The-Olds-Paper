@@ -56,12 +56,11 @@ function fetchIt(weatherInputValue) {
                     // if (!articlesArr.length) {
                     //     console.log("The News API doesn't provide news for some countries, We deeply apologies")
                     //     for (let n of allCards) {
-                    //         n.style.display = 'none'
+                    //         n.classList.add('allCardsView')
                     //     }
-                    //     weatherCard.style.margin = '0 auto'
+                    //     weatherCard.classList.add('alterWeatherCard')
                     //     noNews.style.display = 'block'
-                    //     cards.style.display = 'flex'
-                    //     cards.style.flexDirection = 'column'
+                    //     cards.classList.add('cardsParent')
                     //     return -1;
                     // }
                     let fixedArticles = articlesArr.filter(item => item.urlToImage != null && item.description != '');
