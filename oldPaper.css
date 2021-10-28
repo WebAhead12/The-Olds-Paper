@@ -177,6 +177,11 @@ h1{
       text-align: center;
       font-size: 20px;
   }
+  .noWeather{
+    display: none;
+    text-align: center;
+    font-size: 20px;
+}
   .allCardsView{
       display: none;
 }
@@ -187,6 +192,7 @@ h1{
       display: flex;
       flex-direction: column;
 }
+
 @media only screen and(min-width: 800px) and (max-width: 1200px) {
     .cards{
         display: grid;

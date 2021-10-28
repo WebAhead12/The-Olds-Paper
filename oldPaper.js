@@ -16,27 +16,31 @@ const humidityText = document.getElementById("humidityText")
 const weatherType = document.getElementById("weatherType")
 const weatherTemp = document.getElementById("weatherTemp")
 const date = document.querySelector('.currDate')
-const allCards = document.querySelectorAll('.card1, .card2, .card3, .card4, .card5')
-// const noNews = document.querySelector('.noNews')
-// const cards = document.querySelector('.cards')
+const allCards = document.querySelectorAll('.card1, .card2, .card3, .card4, .card5')//select only articles
+const noNews = document.querySelector('.noNews')
+const noWeather = document.querySelector('.noWeather')
+const cards = document.querySelector('.cards')
 
 
-fetchIt('Haifa');
+fetchIt('Haifa'); //show Haifa weather and Israel news by default when the page load. 
 
 form.addEventListener("submit", event => {
 
     event.preventDefault();
-    let input = weatherInput.value != "" ? weatherInput.value : 'Haifa';
+    let input = weatherInput.value != "" ? weatherInput.value : 'Haifa';//empty input => get data from api for Haifa. 
     fetchIt(input);
 })
 
 function fetchIt(weatherInputValue) {
+    //get data from weather API based on user input
     fetch(`http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${weatherInputValue}&days=7&aqi=no&alerts=no`)
         .then(response => {
             if (!response.ok) throw new Error(response.status);
             return response.json();
         })
         .then(weather => {
+            //countryCodes has a code name for every country we use it as a manipulation between the country name and it code name.
+            //Create a weather card after the api request:
             let currCountry = countryCodes.find(element => element.Name == weather.location.country).Code.toLowerCase();
             weatherTitle.textContent = weather.location.name + " - " + weather.location.country;
             weatherImg.src = weather.current.condition.icon
@@ -46,6 +50,7 @@ function fetchIt(weatherInputValue) {
             weatherType.textContent = weather.current.condition.text
             date.textContent = weather.forecast.forecastday[0].date
 
+            //from weather api we extract the country name and use it for the second API => news api
             fetch(`https://newsapi.org/v2/top-headlines?country=${currCountry}&apiKey=${newsApiKey}`)
                 .then(response => {
                     if (!response.ok) throw new Error(response.status);
@@ -53,17 +58,18 @@ function fetchIt(weatherInputValue) {
                 })
                 .then(news => {
                     const articlesArr = news.articles;
-                    // if (!articlesArr.length) {
-                    //     console.log("The News API doesn't provide news for some countries, We deeply apologies")
-                    //     for (let n of allCards) {
-                    //         n.classList.add('allCardsView')
-                    //     }
-                    //     weatherCard.classList.add('alterWeatherCard')
-                    //     noNews.style.display = 'block'
-                    //     cards.classList.add('cardsParent')
-                    //     return -1;
-                    // }
+                    //api may return an empty string when it doesn't find data for some countries
+                    if (!articlesArr.length) {
+                        //getWarning handle an error of no data recieved and shows it to the user.
+                        getWarning("The News API doesn't provide news for some countries, We deeply apologies", 'news');
+                        return -1;
+                    } else {
+                        removeWarning();//get the old styling back if an error happened before.
+                    }
+                    //api give us data that sometimes it comes short => without description or image; so we filter the array => we get less data.
                     let fixedArticles = articlesArr.filter(item => item.urlToImage != null && item.description != '');
+
+                    //Create a articles after the api request:
                     allArtTitles.forEach((element, index) => {
                         element.textContent = fixedArticles[index].title;
                     })
@@ -82,17 +88,43 @@ function fetchIt(weatherInputValue) {
                     console.error(error)
                     if (error.message === "400") {
                         console.log(`[NEWS API]: Couldnt Find Country with this code ${currCountry}`)
+                        getWarning("The News API doesn't provide news for some countries, We deeply apologies", 'news');
                     } else {
-                        console.log(`[NEWS API]: Unexpected Error`)
+                        getWarning('[NEWS API]: Unexpected Error', 'news');
                     }
                 });
         })
         .catch(error => {
+            console.error(error)
             if (error.message === "400") {
-                console.log(`[WEATHER API]: ${weatherInput.value} Is not a valid city`)
+                getWarning(`[WEATHER API]: ${weatherInput.value} Is not a valid city`, 'weather');
             } else {
-                console.error(error)
-                console.log(`[WEATHER API]: Unexpected Error`);
+                getWarning('[WEATHER API]: Unexpected Error', 'weather');
             }
         });
+}
+
+function getWarning(str, dataFrom) {//dataFrom is like a flag for APIs
+    for (let n of allCards) {
+        n.classList.add('allCardsView')//hide all articles
+    }
+    weatherCard.classList.add('alterWeatherCard')//adjust styling
+    cards.classList.add('cardsParent')//chnage display
+    if (dataFrom == 'news') {
+        noNews.style.display = 'block'
+    } else {
+        noWeather.style.display = 'block'
+    }
+    return console.log(str);
+}
+
+function removeWarning() {
+    for (let n of allCards) {
+        n.classList.remove('allCardsView')
+    }
+    weatherCard.classList.remove('alterWeatherCard')
+    cards.classList.remove('cardsParent')
+    noNews.style.display = 'none'
+    noWeather.style.display = 'none'
+    return -1;
 }
