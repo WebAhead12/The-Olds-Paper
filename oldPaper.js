@@ -17,8 +17,8 @@ const weatherType = document.getElementById("weatherType")
 const weatherTemp = document.getElementById("weatherTemp")
 const date = document.querySelector('.currDate')
 const allCards = document.querySelectorAll('.card1, .card2, .card3, .card4, .card5')
-const noNews = document.querySelector('.noNews')
-const cards = document.querySelector('.cards')
+// const noNews = document.querySelector('.noNews')
+// const cards = document.querySelector('.cards')
 
 
 fetchIt('Haifa');
@@ -31,7 +31,7 @@ form.addEventListener("submit", event => {
 })
 
 function fetchIt(weatherInputValue) {
-    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${weatherInputValue}&days=7&aqi=no&alerts=no`)
+    fetch(`http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${weatherInputValue}&days=7&aqi=no&alerts=no`)
         .then(response => {
             if (!response.ok) throw new Error(response.status);
             return response.json();
@@ -53,17 +53,17 @@ function fetchIt(weatherInputValue) {
                 })
                 .then(news => {
                     const articlesArr = news.articles;
-                    if (!articlesArr.length) {
-                        console.log("The News API doesn't provide news for some countries, We deeply apologies")
-                        for (let n of allCards) {
-                            n.style.display = 'none'
-                        }
-                        weatherCard.style.margin = '0 auto'
-                        noNews.style.display = 'block'
-                        cards.style.display = 'flex'
-                        cards.style.flexDirection = 'column'
-                        return -1;
-                    }
+                    // if (!articlesArr.length) {
+                    //     console.log("The News API doesn't provide news for some countries, We deeply apologies")
+                    //     for (let n of allCards) {
+                    //         n.style.display = 'none'
+                    //     }
+                    //     weatherCard.style.margin = '0 auto'
+                    //     noNews.style.display = 'block'
+                    //     cards.style.display = 'flex'
+                    //     cards.style.flexDirection = 'column'
+                    //     return -1;
+                    // }
                     let fixedArticles = articlesArr.filter(item => item.urlToImage != null && item.description != '');
                     allArtTitles.forEach((element, index) => {
                         element.textContent = fixedArticles[index].title;
