@@ -1,5 +1,5 @@
 const weatherApiKey = '5c44a1eebb8047a8aa165327212610'//https://www.weatherapi.com/
-const newsApiKey = '54b1e371b99d4e05abcac90ff24ae908'//https://newsapi.org/
+const newsApiKey = 'b4955ca0deb95baf8cd56b1271a4bd27'//https://gnews.io/
 
 const weatherInput = document.getElementById("city-input");
 const submitForm = document.getElementById("city-submit")
@@ -65,15 +65,15 @@ function fetchIt(weatherInputValue) {
             date.textContent = weather.forecast.forecastday[0].date
 
             //from weather api we extract the country name and use it for the second API => news api
-            fetch(`https://newsapi.org/v2/top-headlines?country=${currCountry}&apiKey=${newsApiKey}`)
+            fetch(`https://gnews.io/api/v4/top-headlines?&country=${currCountry}&token=${newsApiKey}`)
                 .then(response => {
                     if (!response.ok) throw new Error(response.status);
                     return response.json();
                 })
                 .then(news => {
                     const articlesArr = news.articles;
-                    //api may return an empty string when it doesn't find data for some countries
-                    if (!articlesArr.length) {
+                    //api return the number of all articales it has when there is no topheadline for a specific country.
+                    if (news.totalArticles > 600000) {
                         removeWarning();
                         //getWarning handle an error of no data recieved and shows it to the user.
                         getWarning("The News API doesn't provide news for some countries, We deeply apologies", 'news');
@@ -82,7 +82,7 @@ function fetchIt(weatherInputValue) {
                         removeWarning();//get the old styling back if an error happened before.
                     }
                     //api give us data that sometimes it comes short => without description or image; so we filter the array => we get less data.
-                    let fixedArticles = articlesArr.filter(item => item.urlToImage != null && item.description != '');
+                    let fixedArticles = articlesArr.filter(item => item.image != null && item.description != '');
 
                     //Create a articles after the api request:
                     allArtTitles.forEach((element, index) => {
@@ -92,7 +92,7 @@ function fetchIt(weatherInputValue) {
                         element.textContent = fixedArticles[index].description;
                     })
                     allArtImages.forEach((element, index) => {
-                        element.src = fixedArticles[index].urlToImage;
+                        element.src = fixedArticles[index].image;
                     })
                     readMore.forEach((element, index) => {
                         element.href = fixedArticles[index].url;
