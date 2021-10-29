@@ -19,15 +19,29 @@ const date = document.querySelector('.currDate')
 const allCards = document.querySelectorAll('.card1, .card2, .card3, .card4, .card5')//select only articles
 const noNews = document.querySelector('.noNews')
 const noWeather = document.querySelector('.noWeather')
+const userLocation = document.querySelector('.userLocation')
 const cards = document.querySelector('.cards')
+let currCity
 
-
-fetchIt('Haifa'); //show Haifa weather and Israel news by default when the page load. 
+//Identify user location by his IP-Address and load the page with it by defualt
+fetch('https://api.db-ip.com/v2/free/self')//https://db-ip.com/
+    .then(response => {
+        if (!response.ok) throw new Error(response.status)
+        return response.json();
+    })
+    .then(ipLookUp => {
+        fetchIt(ipLookUp.city)
+        currCity = ipLookUp.city
+    })
+    .catch(error => {
+        console.error(error)
+        getWarning("[DB-IP API] We couldn't find your location", 'userLocation')
+    });
 
 form.addEventListener("submit", event => {
 
     event.preventDefault();
-    let input = weatherInput.value != "" ? weatherInput.value : 'Haifa';//empty input => get data from api for Haifa. 
+    let input = weatherInput.value != "" ? weatherInput.value : currCity;//empty input => get data from api for the city we get from userIP. 
     fetchIt(input);
 })
 
@@ -60,6 +74,7 @@ function fetchIt(weatherInputValue) {
                     const articlesArr = news.articles;
                     //api may return an empty string when it doesn't find data for some countries
                     if (!articlesArr.length) {
+                        removeWarning();
                         //getWarning handle an error of no data recieved and shows it to the user.
                         getWarning("The News API doesn't provide news for some countries, We deeply apologies", 'news');
                         return -1;
@@ -108,12 +123,22 @@ function getWarning(str, dataFrom) {//dataFrom is like a flag for APIs
     for (let n of allCards) {
         n.classList.add('allCardsView')//hide all articles
     }
-    weatherCard.classList.add('alterWeatherCard')//adjust styling
     cards.classList.add('cardsParent')//chnage display
     if (dataFrom == 'news') {
+        weatherCard.classList.add('alterWeatherCard')//adjust styling
         noNews.style.display = 'block'
+        noWeather.style.display = 'none'
+        userLocation.style.display = 'none'
+    } else if (dataFrom == 'userLocation') {
+        weatherCard.classList.add('allCardsView')//hide weather card
+        userLocation.style.display = 'block'
+        noNews.style.display = 'none'
+        noWeather.style.display = 'none'
     } else {
+        weatherCard.classList.add('allCardsView')//hide weather card
         noWeather.style.display = 'block'
+        noNews.style.display = 'none'
+        userLocation.style.display = 'none'
     }
     return console.log(str);
 }
@@ -123,6 +148,7 @@ function removeWarning() {
         n.classList.remove('allCardsView')
     }
     weatherCard.classList.remove('alterWeatherCard')
+    weatherCard.classList.remove('allCardsView')
     cards.classList.remove('cardsParent')
     noNews.style.display = 'none'
     noWeather.style.display = 'none'
