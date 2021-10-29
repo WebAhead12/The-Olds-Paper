@@ -34,9 +34,12 @@ fetch('https://api.db-ip.com/v2/free/self')//https://db-ip.com/
         currCity = ipLookUp.city
     })
     .catch(error => {
-        fetchIt('Haifa')//if for some reason we were unable to found the user location, we load the page on Haifa-IL
         console.error(error)
         getWarning("[DB-IP API] We couldn't find your location", 'userLocation')
+        setTimeout(() => {
+            removeWarning();
+            fetchIt('Haifa')//if for some reason we were unable to found the user location, we load the page on Haifa-IL
+        }, 5000)
     });
 
 form.addEventListener("submit", event => {
@@ -153,5 +156,6 @@ function removeWarning() {
     cards.classList.remove('cardsParent')
     noNews.style.display = 'none'
     noWeather.style.display = 'none'
+    userLocation.style.display = 'none'
     return -1;
 }
